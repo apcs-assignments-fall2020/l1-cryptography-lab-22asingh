@@ -2,13 +2,51 @@ import java.util.Scanner;
 
 public class Vigenere {
     public static String encryptVigenere(String message, String key) {
-        return message;
-        // REPLACE THIS WITH YOUR CODE
+        int shift;
+        int nonLetterCount = 0;
+        char ch;
+        String newStr = "";
+        for (int i = 0; i < message.length(); i++){
+            shift = (int) (key.charAt((i - nonLetterCount) % key.length()) - 65);
+            ch = message.charAt(i);
+            if ((ch >= 65 && ch <= 90)||(ch >= 97 && ch <= 122)){
+                if ((ch >= (90 - (shift - 1)) && ch <= 90)||(ch >= (122 - (shift - 1)) && ch <= 122)){
+                    newStr += (char)(ch - (26 - shift));
+                }
+                else{
+                    newStr += (char)(ch + shift);
+                }
+            }
+            else{
+                newStr += ch;
+                nonLetterCount += 1;
+            }
+        }
+        return newStr;
     }
 
     public static String decryptVigenere(String message, String key) {
-        return message;
-        // REPLACE THIS WITH YOUR CODE
+        int shift;
+        int nonLetterCount = 0;
+        char ch;
+        String newStr = "";
+        for (int i = 0; i < message.length(); i++){
+            shift = (int) (key.charAt((i - nonLetterCount) % key.length()) - 65);
+            ch = message.charAt(i);
+            if ((ch >= 65 && ch <= 90)||(ch >= 97 && ch <= 122)){
+                if ((ch >= 65 && ch <= (65 + (shift - 1)))||(ch >= 97 && ch <= (97 + (shift - 1)))){
+                    newStr += (char)(ch + (26 - shift));
+                }
+                else{
+                    newStr += (char)(ch - shift);
+                }
+            }
+            else{
+                newStr += ch;
+                nonLetterCount += 1;
+            }
+        }
+        return newStr;
     }
 
 
